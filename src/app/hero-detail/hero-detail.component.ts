@@ -11,7 +11,10 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './hero-detail.component.css' ]
 })
 export class HeroDetailComponent implements OnInit {
-  hero: Hero;
+// hero : Hero comment this out to implement code below
+
+
+  hero$ : Observable<Hero>;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,14 +23,20 @@ export class HeroDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getHero();
+  this.getHero();
   }
 
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+    this.hero$ =  this.heroService.getHero(id)
+      // .subscribe(hero => this.hero = hero);
   }
+
+  // getHero(): void {
+  //   const id = +this.route.snapshot.paramMap.get('id');
+  //   this.heroService.getHero(id)
+  //     .subscribe(hero => this.hero = hero);
+  // }
 
   goBack(): void {
     this.location.back();
